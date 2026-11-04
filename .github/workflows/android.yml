@@ -9,15 +9,28 @@ jobs:
   android14:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      ANDROID_HOME: ${{ runner.temp }}/android-sdk
+      ANDROID_SDK_ROOT: ${{ runner.temp }}/android-sdk
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
+      - name: Install pinned official Android command-line tools
+        run: |
+          curl --fail --location --retry 3 'https://dl.google.com/android/repository/commandlinetools-linux-16111833_latest.zip' -o "$RUNNER_TEMP/android-tools.zip"
+          printf 'e025545c62a8e64c7559119566a569fb1dec5f60  %s\n' "$RUNNER_TEMP/android-tools.zip" | sha1sum -c -
+          unzip -q "$RUNNER_TEMP/android-tools.zip" -d "$RUNNER_TEMP/android-tools"
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          mv "$RUNNER_TEMP/android-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_HOME/platform-tools" >> "$GITHUB_PATH"
       - name: SDK and emulator dependencies
         run: |
-          sdkmanager 'platforms;android-34' 'build-tools;35.0.0' 'emulator' 'system-images;android-34;google_apis;x86_64'
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager 'platform-tools' 'platforms;android-34' 'build-tools;35.0.0' 'emulator' 'system-images;android-34;google_apis;x86_64'
           test -e /dev/kvm
           sudo chmod 666 /dev/kvm
           echo no | avdmanager create avd --force --name ivi_api34 --package 'system-images;android-34;google_apis;x86_64'
