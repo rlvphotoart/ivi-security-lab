@@ -1,0 +1,35 @@
+{
+  "version": "1.1",
+  "compile_sdk": 34,
+  "minimum_sdk": 34,
+  "target_sdk": 34,
+  "protocol_checks_passed": 14,
+  "native_policy_checks_passed": 27,
+  "signatures_verified": true,
+  "local_runtime": {
+    "serial": "emulator-5554",
+    "app_version": "1.1",
+    "android": "16",
+    "sdk": 36,
+    "phone_only_screen": true,
+    "no_target_guards": true,
+    "fixture_ready": true,
+    "private_file_verdict": "INCONCLUSIVE",
+    "private_provider_denied": true,
+    "json_export": true,
+    "process_restart_persistence": true,
+    "permission_prompt": true,
+    "physical_bluetooth_tested": false,
+    "native_sdp_roundtrip_tested": false,
+    "native_rfcomm_roundtrip_tested": false,
+    "cve_reproduction_tested": false,
+    "events": 15
+  },
+  "physical_vehicle_validation": false,
+  "native_sdp_and_rfcomm_roundtrip_validation": false,
+  "android14_ci": "pending first workflow run",
+  "artifacts": {
+    "ivi-lab-fixture.apk": "ab19b6042af09c1579ed895f066e713005bf6b73aa4ca6d91862f9acb995d4e1",
+    "ivi-lab-probe.apk": "c0d45ccafe87d4c32020037e4174a980a6735ce1b98f0b246f479d20ca31b1ca"
+  }
+}
