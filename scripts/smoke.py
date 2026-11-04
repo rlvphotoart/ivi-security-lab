@@ -31,7 +31,7 @@ def tree():
 def tap(label):
     for attempt in range(8):
         for node in tree().iter('node'):
-            if node.get('text') == label or node.get('content-desc') == label:
+            if node.get('text', '').casefold() == label.casefold() or node.get('content-desc', '').casefold() == label.casefold():
                 x1, y1, x2, y2 = map(int, re.findall(r'\d+', node.get('bounds')))
                 if x2 <= x1 or y2 <= y1:
                     continue
@@ -101,7 +101,7 @@ tap('Read cached service UUIDs')
 log = adb('logcat', '-d', '-s', 'IVILab:I', 'AndroidRuntime:E', '*:S')
 (out / 'runtime.log').write_text(log)
 assert 'Permission already granted' in log
-assert 'No peer selected' in log
+assert log.count('No peer selected') >= 4
 assert 'FATAL EXCEPTION' not in log
 (out / 'preview.png').write_bytes(adb('exec-out', 'screencap', '-p', binary=True))
 summary = {'serial': args.serial, 'app_version': report['app_version'], 'android': report['device']['android_release'], 'sdk': report['device']['sdk'], 'phone_only_screen': True, 'no_target_guards': True, 'fixture_ready': True, 'private_file_verdict': file_results[0], 'private_provider_denied': True, 'json_export': True, 'process_restart_persistence': True, 'permission_prompt': True, 'physical_bluetooth_tested': False, 'native_sdp_roundtrip_tested': False, 'native_rfcomm_roundtrip_tested': False, 'cve_reproduction_tested': False, 'events': len(events)}
