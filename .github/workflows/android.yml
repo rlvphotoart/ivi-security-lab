@@ -45,6 +45,7 @@ jobs:
         run: |
           (cd dist && sha256sum -c SHA256SUMS.txt)
           cp dist/*.apk dist/SHA256SUMS.txt outputs/
+          rm -f outputs/*.idsig
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose outputs/ivi-lab-probe.apk
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose outputs/ivi-lab-fixture.apk
       - name: Boot Android 14
