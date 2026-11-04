@@ -48,12 +48,15 @@ jobs:
       - name: Boot Android 14
         run: |
           "$ANDROID_HOME/emulator/emulator" -avd ivi_api34 -port 5554 -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -memory 2048 -cores 2 > outputs/emulator.log 2>&1 &
-          timeout 180 adb -s emulator-5554 wait-for-device
+          emulator_pid=$!
+          booted=false
           for attempt in $(seq 1 90); do
-            if [ "$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')" = 1 ]; then break; fi
+            if ! kill -0 "$emulator_pid" 2>/dev/null; then tail -n 100 outputs/emulator.log; exit 1; fi
+            state=$(timeout 5 adb -s emulator-5554 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || true)
+            if [ "$state" = 1 ]; then booted=true; break; fi
             sleep 2
           done
-          test "$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')" = 1
+          if [ "$booted" != true ]; then tail -n 100 outputs/emulator.log; exit 1; fi
           adb -s emulator-5554 shell input keyevent 82
           adb -s emulator-5554 shell settings put global window_animation_scale 0
           adb -s emulator-5554 shell settings put global transition_animation_scale 0
@@ -65,10 +68,12 @@ jobs:
       - name: Collect failure diagnostics
         if: failure()
         run: |
-          adb -s emulator-5554 logcat -d > outputs/failure-logcat.txt || true
-          adb -s emulator-5554 shell uiautomator dump /sdcard/failure.xml || true
-          adb -s emulator-5554 pull /sdcard/failure.xml outputs/failure.xml || true
-          adb -s emulator-5554 exec-out screencap -p > outputs/failure.png || true
+          if timeout 5 adb -s emulator-5554 shell true; then
+            timeout 15 adb -s emulator-5554 logcat -d > outputs/failure-logcat.txt || true
+            timeout 15 adb -s emulator-5554 shell uiautomator dump /sdcard/failure.xml || true
+            timeout 5 adb -s emulator-5554 pull /sdcard/failure.xml outputs/failure.xml || true
+            timeout 5 adb -s emulator-5554 exec-out screencap -p > outputs/failure.png || true
+          fi
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
