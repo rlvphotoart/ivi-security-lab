@@ -34,6 +34,8 @@ jobs:
           test -e /dev/kvm
           sudo chmod 666 /dev/kvm
           echo no | avdmanager create avd --force --name ivi_api34 --package 'system-images;android-34;google_apis;x86_64'
+          sed -i '/^disk.dataPartition.size=/d' "$HOME/.android/avd/ivi_api34.avd/config.ini"
+          echo 'disk.dataPartition.size=2G' >> "$HOME/.android/avd/ivi_api34.avd/config.ini"
       - name: Compile and run bounded-protocol and policy checks
         run: |
           mkdir -p outputs
