@@ -8,6 +8,10 @@ A phone-only Bluetooth connection cannot establish IVI-02 app containment on the
 
 Two local, signed APKs for controlled IVI-01 and IVI-02 checks. For native Bluetooth tests, install only the probe on the phone. The original Lab peer mode requires the probe on both devices. Install the fixture only where you want local containment checks. No root, platform signing, Internet access, vehicle commands, firmware changes or background service is required.
 
+## Verified delivery
+
+The exact signed v1.1 APKs passed the [Android 14/API 34 CI run](https://github.com/rlvphotoart/ivi-security-lab/actions/runs/41893242295). Local UI checks also passed on Android 16/API 36. There are 14 Lab protocol checks and 27 native service/policy checks. See `verification/android14-ci.json` for the tested commit, artifact hashes and evidence limits. Physical phone-to-IVI SDP/RFCOMM exchange has not been tested.
+
 ## What this delivers
 
 - A pre-permission negative test of the Android bonded-device API.

@@ -1,0 +1,39 @@
+{
+  "workflow": {
+    "conclusion": "success",
+    "headSha": "08f9de873aa1dc8d80dbf42ddd822bf819e1a7a7",
+    "status": "completed",
+    "url": "https://github.com/rlvphotoart/ivi-security-lab/actions/runs/41893242295"
+  },
+  "runtime_summary": {
+    "serial": "emulator-5554",
+    "app_version": "1.1",
+    "android": "14",
+    "sdk": 34,
+    "phone_only_screen": true,
+    "missing_prerequisite_guards": {
+      "No peer selected": 4,
+      "Bluetooth unavailable": 0,
+      "Bluetooth disabled": 0
+    },
+    "fixture_ready": true,
+    "private_file_verdict": "INCONCLUSIVE",
+    "private_provider_denied": true,
+    "json_export": true,
+    "process_restart_persistence": true,
+    "permission_prompt": true,
+    "physical_bluetooth_tested": false,
+    "native_sdp_roundtrip_tested": false,
+    "native_rfcomm_roundtrip_tested": false,
+    "cve_reproduction_tested": false,
+    "events": 15
+  },
+  "exact_delivery_sha256": {
+    "ivi-lab-fixture.apk": "ab19b6042af09c1579ed895f066e713005bf6b73aa4ca6d91862f9acb995d4e1",
+    "ivi-lab-probe.apk": "c0d45ccafe87d4c32020037e4174a980a6735ce1b98f0b246f479d20ca31b1ca"
+  },
+  "protocol_checks_passed": 14,
+  "native_policy_checks_passed": 27,
+  "physical_vehicle_tested": false,
+  "native_bluetooth_radio_roundtrip_tested": false
+}

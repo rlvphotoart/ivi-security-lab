@@ -2,6 +2,8 @@
 
 Instalează numai `ivi-lab-probe.apk` pe telefonul cu Android 14 sau mai nou. Nu trebuie instalată aplicația pe IVI. Modul **IVI**, afișat la pornire, folosește serviciile Bluetooth pe care mașina le expune deja.
 
+Testele automate au trecut pe emulator Android 14/API 34 pentru exact APK-urile semnate livrate, precum și local pe Android 16/API 36. [Rezultatul Android 14](https://github.com/rlvphotoart/ivi-security-lab/actions/runs/41893242295). Au trecut 14 verificări de protocol și 27 pentru servicii/politica de asociere. Conexiunea fizică telefon–IVI rămâne de validat pe vehicul/banc.
+
 ## Procedură
 
 1. Înainte de acordarea permisiunilor, poți apăsa **Check permission boundary**. Acesta verifică telefonul și permisiunile aplicației; nu este un verdict despre IVI.

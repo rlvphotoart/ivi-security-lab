@@ -27,7 +27,11 @@
   },
   "physical_vehicle_validation": false,
   "native_sdp_and_rfcomm_roundtrip_validation": false,
-  "android14_ci": "pending first workflow run",
+  "android14_ci": {
+    "conclusion": "success",
+    "url": "https://github.com/rlvphotoart/ivi-security-lab/actions/runs/41893242295",
+    "tested_source_commit": "08f9de873aa1dc8d80dbf42ddd822bf819e1a7a7"
+  },
   "artifacts": {
     "ivi-lab-fixture.apk": "ab19b6042af09c1579ed895f066e713005bf6b73aa4ca6d91862f9acb995d4e1",
     "ivi-lab-probe.apk": "c0d45ccafe87d4c32020037e4174a980a6735ce1b98f0b246f479d20ca31b1ca"
